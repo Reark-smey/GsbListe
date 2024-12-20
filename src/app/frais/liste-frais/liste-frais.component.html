@@ -1,1 +1,7 @@
-<p>liste-frais works!</p>
+<h2> Liste des frais </h2>
+
+<ul id="requetesTerminees">
+  <li *ngFor="let frais of frais$ | async; trackBy: trackById">
+    {{frais.anneemois}} - {{frais.lib_etat}} €
+  </li>
+</ul>

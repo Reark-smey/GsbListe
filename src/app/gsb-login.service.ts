@@ -6,6 +6,7 @@ import {catchError, tap} from 'rxjs';
 import {Visiteur} from './models/visiteur';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,8 @@ private login: Login = new Login();
   serviceEnvoieLogin(username: string, password: string) {
     const requestObject = new Visiteur({'login':username,'password':password});
     return this.http.post<Login>('http://gsb.julliand.etu.lmdsio.com/api/login', requestObject)
-      .pipe(tap(data=> {
+      .pipe(
+        tap(data=> {
         this.login = new Login(data);
         this.router.navigate(['/frais/liste']);
       }),
@@ -26,4 +28,12 @@ private login: Login = new Login();
       })
       );
   }
+  recupereBearer():string {
+    return this.login.access_token;
+  }
+
+  visiteurId():number {
+    return this.login.visiteur.id_visiteur;
+  }
+
 }
